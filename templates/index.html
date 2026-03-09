@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>AI Crop Disease Detection</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<h1>🌿 AI Crop Disease Detection</h1>
+
+<form action="/predict" method="post" enctype="multipart/form-data">
+
+<input type="file" name="image" required>
+
+<br><br>
+
+<button type="submit">Predict Disease</button>
+
+</form>
+
+
+{% if prediction %}
+
+<h2>Disease: {{ prediction }}</h2>
+
+<div class="bar-container">
+<div class="bar" style="width: {{ confidence }}%">
+{{ confidence }}%
+</div>
+</div>
+
+<h3>Treatment Suggestion</h3>
+
+<p>{{ treatment }}</p>
+
+{% endif %}
+
+</body>
+</html>
