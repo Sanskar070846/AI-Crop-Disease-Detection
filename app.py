@@ -3,29 +3,22 @@ import tensorflow as tf
 import numpy as np
 from PIL import Image
 import json
-import os
 
 app = Flask(__name__)
 
+# Load trained model
 model = tf.keras.models.load_model("model/crop_model.h5")
 
+# Load class names
 with open("model/class_names.json","r") as f:
     class_names = json.load(f)
 
-
-# Treatment suggestions
-treatments = {
-"Apple___Apple_scab":"Use fungicide sprays and remove infected leaves.",
-"Apple___Black_rot":"Prune infected branches and apply fungicide.",
-"Apple___healthy":"Your plant is healthy. No treatment required.",
-"Potato___Early_blight":"Use copper fungicide and remove infected leaves.",
-"Potato___Late_blight":"Apply fungicide immediately and avoid overhead watering.",
-"Tomato___Early_blight":"Use fungicide and improve air circulation.",
-"Tomato___Late_blight":"Remove infected leaves and apply fungicide.",
-"Tomato___healthy":"Plant is healthy."
-}
+# Load advisory dataset
+with open("model/disease_advisory.json","r") as f:
+    advisory = json.load(f)
 
 
+# Image preprocessing
 def preprocess(img):
 
     img = img.resize((224,224))
@@ -54,19 +47,34 @@ def predict():
     predicted_class = class_names[np.argmax(prediction)]
     confidence = float(np.max(prediction))*100
 
-    # clean disease name
-    clean_name = predicted_class.split("___")[1].replace("_"," ")
-    
+
+    # Clean disease name for UI
+    clean_name = predicted_class.replace("___"," ").replace("_"," ")
+
+
+    # Healthy condition
     if "healthy" in predicted_class.lower():
+
+        cause = "No disease detected."
         treatment = "Plant is healthy. No treatment required."
+        pesticides = []
+
     else:
-        treatment = treatments.get(predicted_class,"Consult agricultural expert for treatment.")
+
+        info = advisory.get(predicted_class,{})
+
+        cause = info.get("cause","Information not available")
+        treatment = info.get("treatment","Consult agriculture expert")
+        pesticides = info.get("pesticides",[])
+
 
     return render_template(
         "index.html",
         prediction=clean_name,
         confidence=round(confidence,2),
-        treatment=treatment
+        cause=cause,
+        treatment=treatment,
+        pesticides=pesticides
     )
 
 

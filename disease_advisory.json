@@ -1,0 +1,193 @@
+{
+"Apple___Apple_scab":{
+"crop":"Apple",
+"disease":"Apple Scab",
+"cause":"Fungal infection caused by Venturia inaequalis",
+"treatment":"Apply fungicide during early infection stage",
+"pesticides":["Bitertanol","Difenoconazole","Myclobutanil","Captan"]
+},
+
+"Apple___Black_rot":{
+"crop":"Apple",
+"disease":"Black Rot",
+"cause":"Fungal infection caused by Botryosphaeria obtusa",
+"treatment":"Remove infected branches and spray fungicide",
+"pesticides":["Captan","Mancozeb"]
+},
+
+"Apple___Cedar_apple_rust":{
+"crop":"Apple",
+"disease":"Cedar Apple Rust",
+"cause":"Fungal infection",
+"treatment":"Remove alternate host plants and spray fungicide",
+"pesticides":["Myclobutanil","Propiconazole"]
+},
+
+"Corn_(maize)___Common_rust":{
+"crop":"Corn",
+"disease":"Common Rust",
+"cause":"Fungal infection Puccinia sorghi",
+"treatment":"Apply fungicide at early stage",
+"pesticides":["Mancozeb","Propiconazole"]
+},
+
+"Corn_(maize)___Northern_Leaf_Blight":{
+"crop":"Corn",
+"disease":"Northern Leaf Blight",
+"cause":"Fungal disease Exserohilum turcicum",
+"treatment":"Remove infected leaves and apply fungicide",
+"pesticides":["Mancozeb","Propiconazole"]
+},
+
+"Potato___Early_blight":{
+"crop":"Potato",
+"disease":"Early Blight",
+"cause":"Alternaria solani fungal infection",
+"treatment":"Spray fungicide and remove infected leaves",
+"pesticides":["Mancozeb","Captan","Copper oxychloride"]
+},
+
+"Potato___Late_blight":{
+"crop":"Potato",
+"disease":"Late Blight",
+"cause":"Phytophthora infestans fungal infection",
+"treatment":"Apply systemic fungicide early",
+"pesticides":["Azoxystrobin","Mandipropamid","Mancozeb"]
+},
+
+"Tomato___Early_blight":{
+"crop":"Tomato",
+"disease":"Early Blight",
+"cause":"Alternaria solani fungus",
+"treatment":"Remove infected leaves and spray fungicide",
+"pesticides":["Mancozeb","Captan","Pyraclostrobin"]
+},
+
+"Tomato___Late_blight":{
+"crop":"Tomato",
+"disease":"Late Blight",
+"cause":"Phytophthora infestans fungus",
+"treatment":"Apply fungicide immediately",
+"pesticides":["Copper sulphate","Mancozeb"]
+},
+
+"Tomato___Bacterial_spot":{
+"crop":"Tomato",
+"disease":"Bacterial Spot",
+"cause":"Xanthomonas bacteria",
+"treatment":"Use resistant seeds and spray antibiotic",
+"pesticides":["Streptocycline","Copper fungicide"]
+},
+
+"Tomato___Septoria_leaf_spot":{
+"crop":"Tomato",
+"disease":"Septoria Leaf Spot",
+"cause":"Septoria lycopersici fungus",
+"treatment":"Remove infected leaves and apply fungicide",
+"pesticides":["Mancozeb","Copper fungicide"]
+},
+
+"Rice___Brown_spot":{
+"crop":"Rice",
+"disease":"Brown Spot",
+"cause":"Bipolaris oryzae fungal infection",
+"treatment":"Improve soil fertility and spray fungicide",
+"pesticides":["Ediphenphos","Carbendazim","Copper oxychloride"]
+},
+
+"Rice___Bacterial_leaf_blight":{
+"crop":"Rice",
+"disease":"Bacterial Leaf Blight",
+"cause":"Xanthomonas oryzae bacteria",
+"treatment":"Seed treatment and antibiotic spray",
+"pesticides":["Streptocycline"]
+},
+
+"Rice___Leaf_smut":{
+"crop":"Rice",
+"disease":"Leaf Smut",
+"cause":"Entyloma oryzae fungus",
+"treatment":"Apply fungicide early",
+"pesticides":["Mancozeb","Copper oxychloride"]
+},
+
+"wheat___Brown_rust":{
+"crop":"Wheat",
+"disease":"Brown Rust",
+"cause":"Puccinia triticina fungus",
+"treatment":"Apply systemic fungicide",
+"pesticides":["Propiconazole","Mancozeb"]
+},
+
+"wheat___Yellow_rust":{
+"crop":"Wheat",
+"disease":"Yellow Rust",
+"cause":"Puccinia striiformis fungus",
+"treatment":"Spray fungicide",
+"pesticides":["Propiconazole"]
+},
+
+"wheat___Loose_Smut":{
+"crop":"Wheat",
+"disease":"Loose Smut",
+"cause":"Ustilago tritici fungus",
+"treatment":"Seed treatment before sowing",
+"pesticides":["Carboxin","Difenoconazole"]
+},
+
+"Sugarcane___RedRot":{
+"crop":"Sugarcane",
+"disease":"Red Rot",
+"cause":"Colletotrichum falcatum fungus",
+"treatment":"Remove infected plants and treat setts",
+"pesticides":["Carbendazim"]
+},
+
+"Sugarcane___Rust":{
+"crop":"Sugarcane",
+"disease":"Rust",
+"cause":"Puccinia melanocephala fungus",
+"treatment":"Apply fungicide",
+"pesticides":["Mancozeb"]
+},
+
+"cotton___bacterial_blight":{
+"crop":"Cotton",
+"disease":"Bacterial Blight",
+"cause":"Xanthomonas bacteria",
+"treatment":"Use resistant varieties and antibiotic spray",
+"pesticides":["Streptocycline","Copper oxychloride"]
+},
+
+"cotton___fussarium_wilt":{
+"crop":"Cotton",
+"disease":"Fusarium Wilt",
+"cause":"Fusarium oxysporum fungus",
+"treatment":"Seed treatment and crop rotation",
+"pesticides":["Carbendazim"]
+},
+
+"Grape___Black_rot":{
+"crop":"Grapes",
+"disease":"Black Rot",
+"cause":"Guignardia bidwellii fungus",
+"treatment":"Remove infected leaves and spray fungicide",
+"pesticides":["Mancozeb","Captan"]
+},
+
+"Grape___Leaf_blight_(Isariopsis_Leaf_Spot)":{
+"crop":"Grapes",
+"disease":"Leaf Blight",
+"cause":"Isariopsis fungus",
+"treatment":"Apply fungicide",
+"pesticides":["Mancozeb"]
+},
+
+"Orange___Haunglongbing_(Citrus_greening)":{
+"crop":"Orange",
+"disease":"Citrus Greening",
+"cause":"Bacterial infection spread by psyllids",
+"treatment":"Control insect vector",
+"pesticides":["Imidacloprid"]
+}
+}
