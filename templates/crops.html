@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card">
+
+<h2>🌱 My Crops</h2>
+
+<p style="margin-bottom:20px;color:#666">
+Track the crops you are currently growing and monitor health insights.
+</p>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px">
+
+<div class="card">
+<h3>🌾 Rice</h3>
+<p>Status: Healthy</p>
+</div>
+
+<div class="card">
+<h3>🌽 Wheat</h3>
+<p>Status: Monitoring</p>
+</div>
+
+<div class="card">
+<h3>🍅 Tomato</h3>
+<p>Status: Risk Alert</p>
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

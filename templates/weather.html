@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card">
+
+<h2>🌦 Weather Detection</h2>
+
+<p style="color:#666;margin-bottom:20px">
+Get real-time weather conditions for your farm location and farming insights.
+</p>
+
+<form method="POST" style="margin-bottom:20px">
+
+<input type="text" name="city" placeholder="Enter city"
+style="padding:10px;border:1px solid #ccc;border-radius:6px">
+
+<button type="submit">Check Weather</button>
+
+</form>
+
+
+{% if temp %}
+
+<hr style="margin:20px 0">
+
+<h3 style="color:#2c7a4b">{{city}}</h3>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;margin-top:20px">
+
+<div class="card">
+<h4>🌡 Temperature</h4>
+<p style="font-size:22px">{{temp}} °C</p>
+</div>
+
+<div class="card">
+<h4>💧 Humidity</h4>
+<p style="font-size:22px">{{humidity}} %</p>
+</div>
+
+<div class="card">
+<h4>☁ Condition</h4>
+<p style="font-size:18px">{{description}}</p>
+</div>
+
+</div>
+
+
+<hr style="margin:25px 0">
+
+
+<h3>🌱 Farming Insights</h3>
+
+{% if humidity > 80 %}
+
+<div style="padding:15px;background:#ffe5e5;border-radius:8px;margin-top:10px">
+⚠ High humidity detected. Risk of fungal diseases may increase.
+</div>
+
+{% elif humidity < 30 %}
+
+<div style="padding:15px;background:#fff5cc;border-radius:8px;margin-top:10px">
+💧 Low humidity detected. Irrigation may be required for crops.
+</div>
+
+{% else %}
+
+<div style="padding:15px;background:#e7f8ec;border-radius:8px;margin-top:10px">
+🌱 Weather conditions look stable for crop growth.
+</div>
+
+{% endif %}
+
+{% endif %}
+
+</div>
+
+{% endblock %}

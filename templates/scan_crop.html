@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card">
+
+<h2>📷 Scan Crop</h2>
+
+<p style="margin-bottom:20px;color:#666">
+Upload a crop image to detect plant diseases instantly using AI analysis.
+</p>
+
+<div class="upload-box">
+
+<form action="/predict" method="post" enctype="multipart/form-data">
+
+<input type="file" name="image" required>
+
+<br><br>
+
+<button type="submit">Scan Crop</button>
+
+</form>
+
+</div>
+
+<p style="margin-top:20px;color:#777">
+Our AI analyzes leaf patterns to identify diseases and recommend treatments.
+</p>
+
+</div>
+
+
+{% if prediction %}
+
+<div class="card" style="margin-top:25px">
+
+<h3>🧠 AI Detection Result</h3>
+
+<p><strong>Disease:</strong> {{ prediction }}</p>
+
+<p><strong>Confidence:</strong> {{ confidence }}%</p>
+
+<p><strong>Cause:</strong> {{ cause }}</p>
+
+<p><strong>Treatment:</strong> {{ treatment }}</p>
+
+{% if pesticides %}
+
+<p><strong>Recommended Pesticides:</strong></p>
+
+<ul>
+{% for p in pesticides %}
+<li>{{ p }}</li>
+{% endfor %}
+</ul>
+
+{% endif %}
+
+</div>
+
+{% endif %}
+
+{% endblock %}
