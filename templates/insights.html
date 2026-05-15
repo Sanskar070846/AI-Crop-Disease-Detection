@@ -1,28 +1,25 @@
 {% extends "base.html" %}
 
-{% block content %}
-
-<div class="card">
-
-<h2>🤖 AI Insights</h2>
-
-<p style="margin-bottom:20px;color:#666">
-Our AI analyzes crop data and environmental conditions
-to provide intelligent farming insights.
-</p>
-
-<ul style="line-height:2">
-
-<li>🌧 High humidity detected.</li>
-
-<li>⚠ Increased risk of fungal diseases.</li>
-
-<li>🍅 Monitor tomato plants closely.</li>
-
-<li>🌱 Consider preventive fungicide treatment.</li>
-
-</ul>
-
+{% block page_header %}
+<div class="container">
+    <h1 class="page-title">{{ t('insights_page_title') }}</h1>
 </div>
+{% endblock %}
 
+{% block content %}
+<div class="container page-stack">
+    <section class="card">
+        <div class="section-heading">
+            <h3>{{ t('farming_recommendations') }}</h3>
+            <p>{{ t('insights_subtext') }}</p>
+        </div>
+
+        <div class="alert-grid">
+            <div class="alert alert-success">{{ t('stable_field_moisture') }}</div>
+            <div class="alert alert-warning">{{ t('high_humidity_field') }}</div>
+            <div class="alert alert-danger">{{ t('fungal_risk_sensitive') }}</div>
+            <div class="alert alert-warning">{{ t('fungicide_tomato') }}</div>
+        </div>
+    </section>
+</div>
 {% endblock %}

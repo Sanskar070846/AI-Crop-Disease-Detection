@@ -1,64 +1,63 @@
 {% extends "base.html" %}
 
+{% block page_header %}
+<div class="container">
+    <h1 class="page-title">{{ t('scan_page_title') }}</h1>
+</div>
+{% endblock %}
+
 {% block content %}
+<div class="container page-stack">
+    <section class="card scan-page-card">
+        <div class="section-heading center-text">
+            <h3>{{ t('upload_crop_image') }}</h3>
+            <p>{{ t('scan_page_subtext') }}</p>
+        </div>
 
-<div class="card">
+        <form action="/predict" method="post" enctype="multipart/form-data" class="stack-form center-form">
+            <label class="upload-zone">
+                <span class="upload-title">{{ t('choose_leaf_image') }}</span>
+                <span class="muted-text">{{ t('file_support') }}</span>
+                <input type="file" name="image" class="input file-input" required>
+            </label>
+            <button type="submit" class="btn">{{ t('scan_crop_button') }}</button>
+        </form>
+    </section>
 
-<h2>📷 Scan Crop</h2>
+    {% if prediction %}
+    <section class="card">
+        <div class="section-heading">
+            <h3>{{ t('detection_result') }}</h3>
+            <p>{{ t('detection_guidance') }}</p>
+        </div>
 
-<p style="margin-bottom:20px;color:#666">
-Upload a crop image to detect plant diseases instantly using AI analysis.
-</p>
+        <div class="grid result-grid">
+            <div class="info-tile">
+                <span class="info-label">{{ t('disease_label') }}</span>
+                <strong>{{ prediction }}</strong>
+            </div>
+            <div class="info-tile">
+                <span class="info-label">{{ t('confidence_label') }}</span>
+                <strong>{{ confidence }}%</strong>
+            </div>
+        </div>
 
-<div class="upload-box">
+        <div class="result-detail">
+            <p><strong>{{ t('cause_label') }}:</strong> {{ cause }}</p>
+            <p><strong>{{ t('treatment_label') }}:</strong> {{ treatment }}</p>
+        </div>
 
-<form action="/predict" method="post" enctype="multipart/form-data">
-
-<input type="file" name="image" required>
-
-<br><br>
-
-<button type="submit">Scan Crop</button>
-
-</form>
-
+        {% if pesticides %}
+        <div class="section-heading section-gap-sm">
+            <h3>{{ t('recommended_pesticides') }}</h3>
+        </div>
+        <div class="chip-list">
+            {% for p in pesticides %}
+            <span class="chip">{{ p }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </section>
+    {% endif %}
 </div>
-
-<p style="margin-top:20px;color:#777">
-Our AI analyzes leaf patterns to identify diseases and recommend treatments.
-</p>
-
-</div>
-
-
-{% if prediction %}
-
-<div class="card" style="margin-top:25px">
-
-<h3>🧠 AI Detection Result</h3>
-
-<p><strong>Disease:</strong> {{ prediction }}</p>
-
-<p><strong>Confidence:</strong> {{ confidence }}%</p>
-
-<p><strong>Cause:</strong> {{ cause }}</p>
-
-<p><strong>Treatment:</strong> {{ treatment }}</p>
-
-{% if pesticides %}
-
-<p><strong>Recommended Pesticides:</strong></p>
-
-<ul>
-{% for p in pesticides %}
-<li>{{ p }}</li>
-{% endfor %}
-</ul>
-
-{% endif %}
-
-</div>
-
-{% endif %}
-
 {% endblock %}

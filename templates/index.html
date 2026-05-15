@@ -1,75 +1,60 @@
 {% extends "base.html" %}
 
+{% block page_header %}
+<div class="container">
+    <h1 class="page-title">{{ t('dashboard_title') }}</h1>
+</div>
+{% endblock %}
+
 {% block content %}
+<div class="container dashboard-page">
+    <section class="hero-card">
+        <div>
+            <span class="eyebrow eyebrow-dark">{{ t('overview_label') }}</span>
+            <h2>{{ t('hello_farmer') }}{% if user %}, {{ user }}{% endif %}</h2>
+            <p class="section-subtext">{{ t('dashboard_subtext') }}</p>
+        </div>
+        <a href="/planner" class="btn btn-secondary action-link">{{ t('open_planner') }}</a>
+    </section>
 
-<div class="dashboard-container">
+    <section class="card">
+        <div class="section-heading">
+            <h3>{{ t('scan_ai_title') }}</h3>
+            <p>{{ t('scan_ai_subtext') }}</p>
+        </div>
+        <form action="/predict" method="post" enctype="multipart/form-data" class="stack-form">
+            <input type="file" name="image" class="input" required>
+            <button type="submit" class="btn">{{ t('scan_plant') }}</button>
+        </form>
+    </section>
 
-<div class="welcome">
+    <section class="grid">
+        <div class="card stat-card">
+            <h3>{{ t('weather_card_title') }}</h3>
+            <p class="metric-text">31 C</p>
+            <p class="muted-text">{{ t('humidity_label') }}: 82%</p>
+            <p class="muted-text">{{ t('condition_label') }}: Humid</p>
+        </div>
+        <div class="card stat-card">
+            <h3>{{ t('my_crops_title') }}</h3>
+            <div class="chip-list">
+                <span class="chip">Rice</span>
+                <span class="chip">Tomato</span>
+                <span class="chip">Wheat</span>
+            </div>
+        </div>
+    </section>
 
-<h2>Hello Farmer 👋</h2>
-
-<p>AI-powered crop monitoring dashboard</p>
-
+    <section class="card">
+        <div class="section-heading">
+            <h3>{{ t('ai_insights_title') }}</h3>
+            <p>{{ t('day_signals') }}</p>
+        </div>
+        <div class="alert-grid">
+            <div class="alert alert-warning">{{ t('high_humidity_detected') }}</div>
+            <div class="alert alert-danger">{{ t('fungal_risk_increasing') }}</div>
+            <div class="alert alert-success">{{ t('monitor_tomato_closely') }}</div>
+        </div>
+    </section>
 </div>
-
-
-<div class="scan-card">
-
-<h3>📷 Scan Crop with AI</h3>
-
-<p>Upload a plant image to detect diseases instantly.</p>
-
-<form action="/predict" method="post" enctype="multipart/form-data">
-
-<input type="file" name="image" required>
-
-<button type="submit">Scan Plant</button>
-
-</form>
-
-</div>
-
-
-<div class="info-grid">
-
-<div class="info-card">
-
-<h3>🌦 Weather</h3>
-
-<p>Temperature: 31°C</p>
-<p>Humidity: 82%</p>
-<p>Condition: Humid</p>
-
-</div>
-
-
-<div class="info-card">
-
-<h3>🌱 My Crops</h3>
-
-<ul>
-
-<li>Rice</li>
-<li>Tomato</li>
-<li>Wheat</li>
-
-</ul>
-
-</div>
-
-</div>
-
-
-<div class="insight-card">
-
-<h3>🤖 AI Farming Insights</h3>
-
-<p>⚠ High humidity detected</p>
-<p>⚠ Risk of fungal diseases increasing</p>
-<p>🌿 Monitor tomato plants closely</p>
-
-</div>
-
-</div>
-
 {% endblock %}

@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+
+{% block page_header %}
+<div class="container">
+    <h1 class="page-title">{{ t('planner_page_title') }}</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container planner-page">
+    <section class="planner-header card planner-banner">
+        <div>
+            <span class="eyebrow">{{ t('farmer_assistant') }}</span>
+            <h2>{{ t('planner_header') }}</h2>
+            <p class="planner-subtext">{{ t('planner_header_subtext') }}</p>
+        </div>
+        <div class="planner-status {{ 'planner-status-danger' if has_risky_alert else 'planner-status-safe' }}">
+            {{ t('risk_alerts_active') if has_risky_alert else t('weather_looks_stable') }}
+        </div>
+    </section>
+
+    <section class="planner-main-grid">
+        <article class="card planner-card planner-form-panel">
+            <div class="section-heading">
+                <h3>{{ t('add_task') }}</h3>
+                <p>{{ t('add_task_subtext') }}</p>
+            </div>
+
+            <form method="POST" class="planner-form">
+                <div class="grid-two">
+                    <label>
+                        <span>{{ t('crop_name') }}</span>
+                        <input type="text" name="crop" placeholder="{{ t('crop_example') }}" required>
+                    </label>
+                    <label>
+                        <span>{{ t('location') }}</span>
+                        <input type="text" name="location" placeholder="{{ t('location_example') }}" value="{{ selected_city or '' }}" required>
+                    </label>
+                    <label>
+                        <span>{{ t('start_date') }}</span>
+                        <input type="date" name="start_date" required>
+                    </label>
+                    <label>
+                        <span>{{ t('user_id_optional') }}</span>
+                        <input type="number" name="user_id" placeholder="Example: 1">
+                    </label>
+                    <label>
+                        <span>{{ t('email_for_updates') }}</span>
+                        <input type="email" name="contact_email" placeholder="farmer@example.com">
+                    </label>
+                    <label>
+                        <span>{{ t('phone_for_sms') }}</span>
+                        <input type="text" name="contact_phone" placeholder="+919999999999">
+                    </label>
+                </div>
+
+                <label>
+                    <span>{{ t('tasks') }}</span>
+                    <textarea name="task_description" rows="5" placeholder="{{ t('tasks_placeholder') }}" required></textarea>
+                </label>
+
+                <div class="planner-form-actions">
+                    <button type="submit" class="primary-button">{{ t('save_task') }}</button>
+                </div>
+            </form>
+        </article>
+
+        <div class="planner-side-stack">
+            <article class="card planner-card weather-panel">
+                <div class="section-heading">
+                    <h3>{{ t('weather_title') }}</h3>
+                    <p>{{ selected_city if selected_city else t('add_location_to_view_weather') }}</p>
+                </div>
+
+                {% if weather_data %}
+                    <div class="weather-grid">
+                        <div class="weather-chip">
+                            <span class="weather-icon">🌡</span>
+                            <div>
+                                <small>{{ t('temperature_label') }}</small>
+                                <strong>{{ weather_data.temperature }} C</strong>
+                            </div>
+                        </div>
+                        <div class="weather-chip">
+                            <span class="weather-icon">💧</span>
+                            <div>
+                                <small>{{ t('humidity_label') }}</small>
+                                <strong>{{ weather_data.humidity }}%</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weather-summary">
+                        <span class="weather-icon">☁</span>
+                        <p>{{ weather_data.description|title }}</p>
+                    </div>
+                {% else %}
+                    <div class="empty-state">{{ t('no_weather_data') }} {{ weather_error }}</div>
+                {% endif %}
+            </article>
+
+            <article class="card planner-card">
+                <div class="section-heading">
+                    <h3>{{ t('alerts_title') }}</h3>
+                    <p>{{ t('alerts_subtext') }}</p>
+                </div>
+
+                <div class="alert-stack">
+                    {% for alert in alerts %}
+                        <div class="alert-box alert-{{ alert.level }}">
+                            <span class="alert-tag">{{ alert.level|upper }}</span>
+                            <p>{{ alert.message }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="planner-task-grid">
+        <article class="card planner-card">
+            <div class="section-heading">
+                <h3>{{ t('todays_tasks') }}</h3>
+                <p class="muted-text">{{ t('scheduled_for', date=today_date) }}</p>
+            </div>
+
+            {% if today_tasks %}
+                <div class="task-list">
+                    {% for task in today_tasks %}
+                        <div class="task-card task-card-today">
+                            <div class="task-card-main">
+                                <div class="task-icon">🌱</div>
+                                <div>
+                                    <h4>{{ task.crop }}</h4>
+                                    <p><strong>{{ t('task_label') }}:</strong> {{ task.task }}</p>
+                                    <p><strong>{{ t('date_label') }}:</strong> {{ task.date }}</p>
+                                    <p><strong>{{ t('location_label') }}:</strong> {{ task.location }}</p>
+                                </div>
+                            </div>
+                            <form method="POST" action="{{ url_for('delete_planner_task', task_id=task.id) }}">
+                                <input type="hidden" name="city" value="{{ selected_city or task.location }}">
+                                <button type="submit" class="delete-button">{{ t('delete_button') }}</button>
+                            </form>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">{{ t('no_tasks_scheduled') }}</div>
+            {% endif %}
+        </article>
+
+        <article class="card planner-card">
+            <div class="section-heading">
+                <h3>{{ t('upcoming_tasks') }}</h3>
+                <p class="muted-text">{{ t('future_crop_activities') }}</p>
+            </div>
+
+            {% if upcoming_tasks %}
+                <div class="task-list">
+                    {% for task in upcoming_tasks %}
+                        <div class="task-card task-card-upcoming">
+                            <div class="task-card-main">
+                                <div class="task-icon">📅</div>
+                                <div>
+                                    <h4>{{ task.crop }}</h4>
+                                    <p><strong>{{ t('task_label') }}:</strong> {{ task.task }}</p>
+                                    <p><strong>{{ t('date_label') }}:</strong> {{ task.date }}</p>
+                                    <p><strong>{{ t('location_label') }}:</strong> {{ task.location }}</p>
+                                </div>
+                            </div>
+                            <form method="POST" action="{{ url_for('delete_planner_task', task_id=task.id) }}">
+                                <input type="hidden" name="city" value="{{ selected_city or task.location }}">
+                                <button type="submit" class="delete-button">{{ t('delete_button') }}</button>
+                            </form>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">{{ t('no_tasks_scheduled') }}</div>
+            {% endif %}
+        </article>
+    </section>
+</div>
+{% endblock %}

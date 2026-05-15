@@ -1,38 +1,27 @@
 {% extends "base.html" %}
 
+{% block page_header %}
+<div class="container auth-page-header">
+    <h1 class="page-title">{{ t('signup_page_title') }}</h1>
+</div>
+{% endblock %}
+
 {% block content %}
+<div class="container auth-page">
+    <section class="card auth-card">
+        <div class="section-heading center-text">
+            <h3>{{ t('join_farmai') }}</h3>
+            <p>{{ t('signup_subtext') }}</p>
+        </div>
 
-<div class="auth-wrapper">
+        <form method="POST" class="stack-form auth-form-modern">
+            <input type="text" name="name" class="input" placeholder="{{ t('full_name') }}" required>
+            <input type="email" name="email" class="input" placeholder="{{ t('email_address') }}" required>
+            <input type="password" name="password" class="input" placeholder="{{ t('password') }}" required>
+            <button type="submit" class="btn btn-block">{{ t('create_account_button') }}</button>
+        </form>
 
-<div class="auth-box">
-
-<h2>🌱 Create Farmer Account</h2>
-
-<p class="auth-desc">
-Join FarmAI to detect crop diseases and monitor farms.
-</p>
-
-<form method="POST" class="auth-form">
-
-<input type="text" name="name" placeholder="Full Name" required>
-
-<input type="email" name="email" placeholder="Email Address" required>
-
-<input type="password" name="password" placeholder="Create Password" required>
-
-<button type="submit">Create Account</button>
-
-</form>
-
-<p class="auth-footer">
-
-Already have an account?
-<a href="/login">Login</a>
-
-</p>
-
+        <p class="auth-footer">{{ t('already_have_account') }} <a href="/login">{{ t('login_button') }}</a></p>
+    </section>
 </div>
-
-</div>
-
 {% endblock %}

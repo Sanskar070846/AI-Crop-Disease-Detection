@@ -1,34 +1,33 @@
 {% extends "base.html" %}
 
+{% block page_header %}
+<div class="container">
+    <h1 class="page-title">{{ t('crops_page_title') }}</h1>
+</div>
+{% endblock %}
+
 {% block content %}
+<div class="container page-stack">
+    <section class="card">
+        <div class="section-heading">
+            <h3>{{ t('crop_portfolio') }}</h3>
+            <p>{{ t('crop_portfolio_subtext') }}</p>
+        </div>
 
-<div class="card">
-
-<h2>🌱 My Crops</h2>
-
-<p style="margin-bottom:20px;color:#666">
-Track the crops you are currently growing and monitor health insights.
-</p>
-
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px">
-
-<div class="card">
-<h3>🌾 Rice</h3>
-<p>Status: Healthy</p>
+        <div class="grid crop-grid">
+            <div class="crop-card">
+                <h3>Rice</h3>
+                <p class="muted-text">{{ t('status_healthy') }}</p>
+            </div>
+            <div class="crop-card">
+                <h3>Wheat</h3>
+                <p class="muted-text">{{ t('status_monitoring') }}</p>
+            </div>
+            <div class="crop-card">
+                <h3>Tomato</h3>
+                <p class="muted-text">{{ t('status_risk_alert') }}</p>
+            </div>
+        </div>
+    </section>
 </div>
-
-<div class="card">
-<h3>🌽 Wheat</h3>
-<p>Status: Monitoring</p>
-</div>
-
-<div class="card">
-<h3>🍅 Tomato</h3>
-<p>Status: Risk Alert</p>
-</div>
-
-</div>
-
-</div>
-
 {% endblock %}

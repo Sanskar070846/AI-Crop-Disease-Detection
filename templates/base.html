@@ -1,47 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>FarmAI Dashboard</title>
-
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ t('app_title') }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
+    <div class="sidebar">
+        <h2>&#127807; FarmAI</h2>
+        <ul>
+            <li><a href="/">&#128202; {{ t('nav_dashboard') }}</a></li>
+            <li><a href="/scan">&#128247; {{ t('nav_scan') }}</a></li>
+            <li><a href="/weather">&#127783; {{ t('nav_weather') }}</a></li>
+            <li><a href="/planner">&#127793; {{ t('nav_planner') }}</a></li>
+            <li><a href="/crops">&#127793; {{ t('nav_crops') }}</a></li>
+            <li><a href="/insights">&#129302; {{ t('nav_insights') }}</a></li>
+            <li><a href="/login">&#128100; {{ t('nav_login') }}</a></li>
+            <li><a href="/signup">&#128221; {{ t('nav_signup') }}</a></li>
+        </ul>
+        <form method="POST" action="{{ url_for('set_language') }}" class="language-form">
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <label for="language" class="language-label">{{ t('language_label') }}</label>
+            <select id="language" name="language" class="language-select" onchange="this.form.submit()">
+                {% for code, name in languages.items() %}
+                    <option value="{{ code }}" {% if current_lang == code %}selected{% endif %}>{{ name }}</option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
 
-<div class="sidebar">
+    <div class="main">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-stack">
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
 
-<h2>🌿 FarmAI</h2>
-
-<ul>
-
-<li><a href="/">📊 Dashboard</a></li>
-<li><a href="/scan">📷 Scan Crop</a></li>
-<li><a href="/weather">🌦 Weather</a></li>
-<li><a href="/crops">🌱 My Crops</a></li>
-<li><a href="/insights">🤖 AI Insights</a></li>
-<li><a href="/login">👤 Farmer Login</a></li>
-<li><a href="/signup">📝 Create Account</a></li>
-
-</ul>
-
-</div>
-
-<div class="main">
-
-<h1 class="page-title">Farmer Dashboard</h1>
-
-{% block content %}
-
-{% endblock %}
-
-</div>
-
+        {% block page_header %}{% endblock %}
+        {% block content %}
+        {% endblock %}
+    </div>
 </body>
 </html>
